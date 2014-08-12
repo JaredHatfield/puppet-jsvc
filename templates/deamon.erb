@@ -1,0 +1,37 @@
+#!/bin/sh
+
+EXEC=<%= @jsvc_exec %>
+JAVA_HOME=<%= @jsvc_java_home %>
+CLASS_PATH=<%= @jsvc_class_path %>
+CLASS=<%= @jsvc_class %>
+USER=<%= @jsvc_name %>
+PID=/var/run/<%= @jsvc_name %>.pid
+LOG_OUT=/var/log/<%= @jsvc_name %>/log.out
+LOG_ERR=/var/log/<%= @jsvc_name %>/log.err
+LOG4J=/etc/<%= @jsvc_name %>/log4j.properties
+do_exec()
+{
+    $EXEC -home "$JAVA_HOME" -cp $CLASS_PATH -user $USER -outfile $LOG_OUT -Dlog4j.configuration=$LOG4J -errfile $LOG_ERR -pidfile $PID $1 $CLASS
+}
+
+case "$1" in
+    start)
+        do_exec
+            ;;
+    stop)
+        do_exec "-stop"
+            ;;
+    restart)
+        if [ -f "$PID" ]; then
+            do_exec "-stop"
+            do_exec
+        else
+            echo "service not running, will do nothing"
+            exit 1
+        fi
+            ;;
+    *)
+            echo "usage: daemon {start|stop|restart}" >&2
+            exit 3
+            ;;
+esac
