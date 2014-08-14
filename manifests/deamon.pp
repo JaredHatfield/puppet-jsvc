@@ -1,5 +1,5 @@
 
-class jsvc::deamon(
+define jsvc::deamon(
   $jsvc_name,
   $jsvc_class_path,
   $jsvc_class,
