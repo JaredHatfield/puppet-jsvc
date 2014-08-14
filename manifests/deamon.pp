@@ -1,10 +1,10 @@
 
 class jsvc::deamon(
-  $ensure = true,
   $jsvc_name,
   $jsvc_class_path,
   $jsvc_class,
   $jsvc_java_home,
+  $ensure = running,
   $jsvc_exec = "/usr/bin/jsvc") {
 
   group { $jsvc_name:
