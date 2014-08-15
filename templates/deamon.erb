@@ -8,7 +8,7 @@ USER=<%= @jsvc_name %>
 PID=/var/run/<%= @jsvc_name %>.pid
 LOG_OUT=/var/log/<%= @jsvc_name %>/log.out
 LOG_ERR=/var/log/<%= @jsvc_name %>/log.err
-LOG4J=/etc/<%= @jsvc_name %>/log4j.properties
+LOG4J=file:///etc/<%= @jsvc_name %>/log4j.properties
 do_exec()
 {
     $EXEC -home "$JAVA_HOME" -cp $CLASS_PATH -user $USER -outfile $LOG_OUT -errfile $LOG_ERR -pidfile $PID -Dlog4j.configuration=$LOG4J $1 $CLASS
