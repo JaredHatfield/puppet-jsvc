@@ -1,5 +1,5 @@
 # Root logger option
-log4j.rootLogger=INFO, file
+log4j.rootLogger=INFO, FILE
 log4j.appender.FILE=org.apache.log4j.FileAppender
 log4j.appender.FILE.File=/var/log/<%= @jsvc_name %>/<%= @jsvc_name %>.log
 log4j.appender.FILE.layout=org.apache.log4j.PatternLayout
