@@ -9,9 +9,18 @@ PID=/var/run/<%= @jsvc_name %>.pid
 LOG_OUT=/var/log/<%= @jsvc_name %>/log.out
 LOG_ERR=/var/log/<%= @jsvc_name %>/log.err
 LOG4J=file:///etc/<%= @jsvc_name %>/log4j.properties
+
 do_exec()
 {
     $EXEC -home "$JAVA_HOME" -cp $CLASS_PATH -user $USER -outfile $LOG_OUT -errfile $LOG_ERR -pidfile $PID -Dlog4j.configuration=$LOG4J $1 $CLASS
+}
+
+get_pid() {
+    cat "$PID"
+}
+
+is_running() {
+    [ -f "$PID" ] && ps `get_pid` > /dev/null 2>&1
 }
 
 case "$1" in
@@ -30,8 +39,16 @@ case "$1" in
             exit 1
         fi
             ;;
+    status)
+        if is_running; then
+            echo "Running"
+        else
+            echo "Stopped"
+            exit 1
+        fi
+            ;;
     *)
-            echo "usage: daemon {start|stop|restart}" >&2
+            echo "usage: daemon {start|stop|restart|status}" >&2
             exit 3
             ;;
 esac

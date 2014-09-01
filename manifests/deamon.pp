@@ -60,8 +60,7 @@ define jsvc::deamon(
   }
 
   service { $jsvc_name:
-    ensure    => $ensure,
-    hasstatus => false,
-    require   => File["/etc/init.d/${jsvc_name}"],
+    ensure  => $ensure,
+    require => File["/etc/init.d/${jsvc_name}"],
   }
 }
