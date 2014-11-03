@@ -4,7 +4,7 @@ define jsvc::deamon(
   $jsvc_class_path,
   $jsvc_class,
   $jsvc_java_home,
-  $ensure = running,
+  $ensure = true,
   $jsvc_exec = "/usr/bin/jsvc") {
 
   group { $jsvc_name:
@@ -61,6 +61,7 @@ define jsvc::deamon(
 
   service { $jsvc_name:
     ensure  => $ensure,
+    enable  => $ensure,
     require => File["/etc/init.d/${jsvc_name}"],
   }
 }
