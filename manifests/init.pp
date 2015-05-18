@@ -1,4 +1,4 @@
-# = Class: apt
+# = Class: jsvc
 #
 # Manages JSVC.
 #
